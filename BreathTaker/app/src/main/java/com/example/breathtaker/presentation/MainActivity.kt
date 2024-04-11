@@ -11,21 +11,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.breathtaker.presentation.main.MainScreen
 import com.example.breathtaker.presentation.ui.theme.BreathTakerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BreathTakerTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Column {
-                        Greeting("Marian Gąbka")
-                        Text(text = "Kolumna")
-                        Text(text = "Dziwny text")
-                        Text(text = "Teoretycznie można w ten sposób!")
-                    }
+                    val navController = rememberNavController()
+                    MainScreen(navController = navController)
                 }
             }
         }

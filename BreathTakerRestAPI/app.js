@@ -24,9 +24,14 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.get('/api/articles/headers', (req, res) => {
+app.get('/api/articles/main', (req, res) => {
     const articlesWithoutContent = articles.map(({ content, ...rest }) => rest);
-    res.json(articlesWithoutContent);
+    res.json({
+        start_button_text: "Take a breath",
+        start_button_read_text: "1 to 5 minutes",
+        articles_header: "Gain knowledge",
+        articles : articlesWithoutContent,
+    });
 });
 
 app.get('/api/articles/:id', (req, res) => {
