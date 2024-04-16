@@ -3,11 +3,9 @@ package com.example.breathtaker.data.repository
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.common.Strings
 import com.example.breathtaker.data.remote.BreathTakerAPI
-import com.example.breathtaker.data.remote.dto.ArticleDto
-import com.example.breathtaker.data.remote.dto.ArticlesDto
-import com.example.breathtaker.data.remote.dto.toArticle
+import com.example.breathtaker.data.remote.dto.toArticleDetails
 import com.example.breathtaker.data.remote.dto.toArticles
-import com.example.breathtaker.domain.model.Article
+import com.example.breathtaker.domain.model.ArticleDetails
 import com.example.breathtaker.domain.model.Articles
 import com.example.breathtaker.domain.repository.ArticleRepository
 import retrofit2.HttpException
@@ -27,9 +25,9 @@ class ArticleRepositoryImpl(
         }
     }
 
-    override suspend fun getArticleById(articleId: String): Resource<Article> {
+    override suspend fun getArticleById(articleId: String): Resource<ArticleDetails> {
         try {
-            val article = api.getArticleById(articleId = articleId).toArticle()
+            val article = api.getArticleById(articleId = articleId).toArticleDetails()
             return Resource.Success(article)
         } catch (e: HttpException) {
             return Resource.Error(e.localizedMessage ?: Strings.unexpectedErrorOccured)

@@ -1,10 +1,9 @@
 package com.example.breathtaker.data.remote.dto
 
-import com.example.breathtaker.domain.model.Article
-import com.example.breathtaker.domain.model.ArticleLimited
+import com.example.breathtaker.domain.model.ArticleDetails
 import com.google.gson.annotations.SerializedName
 
-data class ArticleDto(
+data class ArticleDetailsDto(
     val sections: List<String>,
     @SerializedName("icon_name")
     val iconName: String,
@@ -14,8 +13,8 @@ data class ArticleDto(
     val title: String
 )
 
-fun ArticleDto.toArticle(): Article {
-    return Article(
+fun ArticleDetailsDto.toArticleDetails(): ArticleDetails {
+    return ArticleDetails(
         title = title,
         sections = sections,
         iconName = iconName

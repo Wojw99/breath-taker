@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.breathtaker.common.Constants
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.common.Strings
-import com.example.breathtaker.domain.use_case.get_article.GetArticleUseCase
+import com.example.breathtaker.domain.use_case.get_article_details.GetArticleDetailsUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class ArticleViewModel(
-    private val getArticleUseCase: GetArticleUseCase,
+    private val getArticleDetailsUseCase: GetArticleDetailsUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _state = mutableStateOf(ArticleState())
@@ -26,7 +26,7 @@ class ArticleViewModel(
     }
 
     private fun getArticle(articleId: String) {
-        getArticleUseCase(articleId).onEach { result ->
+        getArticleDetailsUseCase(articleId).onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     _state.value = ArticleState(

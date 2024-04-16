@@ -1,6 +1,6 @@
 package com.example.breathtaker.data.remote
 
-import com.example.breathtaker.data.remote.dto.ArticleDto
+import com.example.breathtaker.data.remote.dto.ArticleDetailsDto
 import com.example.breathtaker.data.remote.dto.ArticlesDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,5 +10,5 @@ interface BreathTakerAPI {
     suspend fun getArticles() : ArticlesDto
 
     @GET("/api/articles/{articleId}")
-    suspend fun getArticleById(@Path("articleId") articleId: String) : ArticleDto
+    suspend fun getArticleById(@Path("articleId") articleId: String) : ArticleDetailsDto
 }
