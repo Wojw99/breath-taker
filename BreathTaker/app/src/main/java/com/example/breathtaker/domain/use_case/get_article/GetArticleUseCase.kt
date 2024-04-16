@@ -16,7 +16,7 @@ class GetArticleUseCase constructor(
     operator fun invoke(articleId: String): Flow<Resource<Article>> = flow {
         try {
             emit(Resource.Loading())
-            val art = repository.getArticleById(articleId).toArticle()
+            val art = repository.getArticleById(articleId)
             emit(Resource.Success(art))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: Strings.unexpectedErrorOccured))

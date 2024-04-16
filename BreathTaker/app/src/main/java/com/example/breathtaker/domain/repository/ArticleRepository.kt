@@ -1,9 +1,9 @@
 package com.example.breathtaker.domain.repository
 
-import com.example.breathtaker.data.remote.dto.ArticleDto
-import com.example.breathtaker.data.remote.dto.ArticlesDto
+import com.example.breathtaker.domain.model.Article
+import com.example.breathtaker.domain.model.Articles
 
 interface ArticleRepository {
-    suspend fun getArticles(): ArticlesDto
-    suspend fun getArticleById(articleId: String): ArticleDto
+    suspend fun getArticles(): Articles
+    suspend fun getArticleById(articleId: String): Article
 }
