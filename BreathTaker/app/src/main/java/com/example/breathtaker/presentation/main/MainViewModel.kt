@@ -1,6 +1,5 @@
 package com.example.breathtaker.presentation.main
 
-
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,13 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.common.Strings
 import com.example.breathtaker.domain.use_case.get_articles.GetArticlesUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val getArticlesUseCase: GetArticlesUseCase
 ) : ViewModel() {
     private val _state = mutableStateOf(MainState())

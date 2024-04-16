@@ -9,16 +9,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.breathtaker.BreathTakerApplication
 import com.example.breathtaker.presentation.Screen
 import com.example.breathtaker.presentation.main.components.ArticleListItem
+import com.example.breathtaker.presentation.viewModelFactory
 
 @Composable
 fun MainScreen(
-    navController: NavController,
-    viewModel: MainViewModel = hiltViewModel()
+    navController: NavController
 ) {
+    val viewModel = viewModel<MainViewModel> (
+        factory = viewModelFactory {
+            MainViewModel(BreathTakerApplication.appModule.getArticlesUseCase)
+        }
+    )
+
     val state = viewModel.state.value
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {

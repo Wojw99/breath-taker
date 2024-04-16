@@ -9,13 +9,10 @@ import com.example.breathtaker.common.Constants
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.common.Strings
 import com.example.breathtaker.domain.use_case.get_article.GetArticleUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
-@HiltViewModel
-class ArticleViewModel @Inject constructor(
+class ArticleViewModel(
     private val getArticleUseCase: GetArticleUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {

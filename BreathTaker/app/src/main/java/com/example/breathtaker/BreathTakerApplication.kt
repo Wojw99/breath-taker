@@ -1,7 +1,16 @@
 package com.example.breathtaker
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.example.breathtaker.di.AppModule
+import com.example.breathtaker.di.AppModuleImpl
 
-@HiltAndroidApp
-class BreathTakerApplication: Application()
+class BreathTakerApplication: Application() {
+    companion object {
+        lateinit var appModule: AppModule
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        appModule = AppModuleImpl(this)
+    }
+}

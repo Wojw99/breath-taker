@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
-class GetArticlesUseCase @Inject constructor(
+class GetArticlesUseCase(
     private val repository: ArticleRepository
 ) {
     operator fun invoke(): Flow<Resource<Articles>> = flow {

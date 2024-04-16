@@ -4,9 +4,8 @@ import com.example.breathtaker.data.remote.BreathTakerAPI
 import com.example.breathtaker.data.remote.dto.ArticleDto
 import com.example.breathtaker.data.remote.dto.ArticlesDto
 import com.example.breathtaker.domain.repository.ArticleRepository
-import javax.inject.Inject
 
-class ArticleRepositoryImpl @Inject constructor(
+class ArticleRepositoryImpl(
     private val api: BreathTakerAPI
 ) : ArticleRepository {
     override suspend fun getArticles(): ArticlesDto {
