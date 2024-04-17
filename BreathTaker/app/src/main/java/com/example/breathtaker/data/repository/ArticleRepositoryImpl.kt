@@ -1,7 +1,9 @@
 package com.example.breathtaker.data.repository
 
+import com.example.breathtaker.BreathTakerApplication
+import com.example.breathtaker.R
+import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource
-import com.example.breathtaker.common.Strings
 import com.example.breathtaker.data.remote.BreathTakerAPI
 import com.example.breathtaker.data.remote.dto.toArticleDetails
 import com.example.breathtaker.data.remote.dto.toArticles
@@ -19,9 +21,9 @@ class ArticleRepositoryImpl(
             val articles = api.getArticles().toArticles()
             return Resource.Success(articles)
         } catch (e: HttpException) {
-            return Resource.Error(e.localizedMessage ?: Strings.unexpectedErrorOccured)
+            return Resource.Error(e.localizedMessage ?: ErrorHelper.unexpectedServerErrorText)
         } catch (e: IOException) {
-            return Resource.Error(Strings.unexpectedErrorOccured)
+            return Resource.Error(ErrorHelper.unexpectedServerErrorText)
         }
     }
 
@@ -30,9 +32,9 @@ class ArticleRepositoryImpl(
             val article = api.getArticleById(articleId = articleId).toArticleDetails()
             return Resource.Success(article)
         } catch (e: HttpException) {
-            return Resource.Error(e.localizedMessage ?: Strings.unexpectedErrorOccured)
+            return Resource.Error(e.localizedMessage ?: ErrorHelper.unexpectedServerErrorText)
         } catch (e: IOException) {
-            return Resource.Error(Strings.unexpectedErrorOccured)
+            return Resource.Error(ErrorHelper.unexpectedServerErrorText)
         }
     }
 }

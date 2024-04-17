@@ -2,26 +2,29 @@ package com.example.breathtaker.presentation.article
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.breathtaker.BreathTakerApplication
+import com.example.breathtaker.R
 import com.example.breathtaker.common.Constants
+import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource
-import com.example.breathtaker.common.Strings
 import com.example.breathtaker.domain.use_case.get_article_details.GetArticleDetailsUseCase
+import com.example.breathtaker.presentation.NavigationHelpers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class ArticleViewModel(
-    private val getArticleDetailsUseCase: GetArticleDetailsUseCase,
-    private val savedStateHandle: SavedStateHandle
+class ArticleDetailsViewModel(
+    private val getArticleDetailsUseCase: GetArticleDetailsUseCase
 ) : ViewModel() {
-    private val _state = mutableStateOf(ArticleState())
-    val state: State<ArticleState> = _state
+    private val _state = mutableStateOf(ArticleDetailsState())
+    val state: State<ArticleDetailsState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_ARTICLE_ID_FOR_NAV)?.let { articleId ->
+        NavigationHelpers.readArticleIdFromSavedState()?.let { articleId ->
             getArticle(articleId)
+        } ?: {
+            _state.value = ArticleDetailsState(error = ErrorHelper.unexpectedAppErrorOccurred)
         }
     }
 
@@ -29,17 +32,17 @@ class ArticleViewModel(
         getArticleDetailsUseCase(articleId).onEach { result ->
             when(result) {
                 is Resource.Success -> {
-                    _state.value = ArticleState(
-                        title = result.data?.title ?: Strings.empty,
-                        iconName = result.data?.iconName ?: Strings.noIconName,
+                    _state.value = ArticleDetailsState(
+                        title = result.data?.title ?: String(),
+                        iconName = result.data?.iconName ?: Constants.NO_ICON,
                         sections = result.data?.sections ?: emptyList()
                     )
                 }
                 is Resource.Error -> {
-                    _state.value = ArticleState(error = result.message ?: Strings.unexpectedErrorOccured)
+                    _state.value = ArticleDetailsState(error = result.message ?: ErrorHelper.unexpectedAppErrorOccurred)
                 }
                 is Resource.Loading -> {
-                    _state.value = ArticleState(isLoading = true)
+                    _state.value = ArticleDetailsState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)

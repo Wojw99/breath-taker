@@ -4,6 +4,7 @@ import com.example.breathtaker.domain.model.ArticleDetails
 import com.google.gson.annotations.SerializedName
 
 data class ArticleDetailsDto(
+    @SerializedName("content")
     val sections: List<String>,
     @SerializedName("icon_name")
     val iconName: String,

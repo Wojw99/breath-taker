@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.breathtaker.common.Strings
 import com.example.breathtaker.domain.model.ArticleLimited
 
 @Composable
@@ -30,7 +29,7 @@ fun ArticleListItem(
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = if(articleLimited.textRead == Strings.empty) "hello" else "world",
+            text = if(articleLimited.textRead == String()) "hello" else "world",
         )
     }
 }

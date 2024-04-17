@@ -4,8 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.breathtaker.BreathTakerApplication
+import com.example.breathtaker.R
+import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource
-import com.example.breathtaker.common.Strings
 import com.example.breathtaker.domain.use_case.get_articles.GetArticlesUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -26,11 +28,11 @@ class MainViewModel(
                 is Resource.Success -> {
                     _state.value = MainState(
                         articles = result.data?.articles ?: emptyList(),
-                        articlesHeader = result.data?.articlesHeader ?: Strings.empty
+                        articlesHeader = result.data?.articlesHeader ?: String()
                     )
                 }
                 is Resource.Error -> {
-                    _state.value = MainState(error = result.message ?: Strings.unexpectedErrorOccured)
+                    _state.value = MainState(error = result.message ?: ErrorHelper.unexpectedServerErrorText)
                 }
                 is Resource.Loading -> {
                     _state.value = MainState(isLoading = true)
