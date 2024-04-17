@@ -11,7 +11,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.example.breathtaker.BreathTakerApplication
+import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.R
 import com.example.breathtaker.presentation.ui.theme.Colors
 
@@ -23,7 +23,7 @@ fun CustomTopAppBar(
     lightTheme: Boolean = false,
     titleText: String = stringResource(id = R.string.app_name)
 ) {
-    val moveBack = BreathTakerApplication.appModule.appResources.getString(
+    val moveBack = BreathTakerApp.appModule.appResources.getString(
         R.string.moveBack)
 
     TopAppBar(

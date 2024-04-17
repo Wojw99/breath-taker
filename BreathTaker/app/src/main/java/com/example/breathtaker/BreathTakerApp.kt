@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.breathtaker.di.AppModule
 import com.example.breathtaker.di.AppModuleImpl
 
-class BreathTakerApplication: Application() {
+class BreathTakerApp: Application() {
     companion object {
         lateinit var appModule: AppModule
     }

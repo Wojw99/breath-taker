@@ -4,8 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.breathtaker.BreathTakerApplication
-import com.example.breathtaker.R
 import com.example.breathtaker.common.Constants
 import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource

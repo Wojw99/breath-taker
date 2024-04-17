@@ -1,7 +1,5 @@
 package com.example.breathtaker.data.repository
 
-import com.example.breathtaker.BreathTakerApplication
-import com.example.breathtaker.R
 import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.data.remote.BreathTakerAPI
