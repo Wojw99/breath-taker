@@ -46,7 +46,6 @@ fun ArticleDetailsScreen(
         }
     )
     val state = viewModel.state.value
-    //val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {

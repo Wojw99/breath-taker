@@ -9,11 +9,11 @@
     <string name="moveBack">Move back.</string>
 
     <string name="howDoYouFeel">How do you feel today?</string>
-    <string name="grade1Text">Simply fantastic!</string>
-    <string name="grade2Text">It\'s good</string>
+    <string name="grade1Text">It\'s really bad</string>
+    <string name="grade2Text">Not very well</string>
     <string name="grade3Text">Neutral</string>
-    <string name="grade4Text">Not very well</string>
-    <string name="grade5Text">It\'s really bad</string>
+    <string name="grade4Text">It\'s good</string>
+    <string name="grade5Text">Simply fantastic!</string>
 
     <string name="breathButtonText">Take a breath</string>
     <string name="breathButtonSubtext">1 to 5 min</string>

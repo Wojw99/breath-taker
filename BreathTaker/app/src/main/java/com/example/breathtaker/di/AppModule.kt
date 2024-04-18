@@ -1,9 +1,12 @@
 package com.example.breathtaker.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import com.example.breathtaker.common.Constants
+import com.example.breathtaker.data.manager.BreathManager
+import com.example.breathtaker.data.manager.BreathManagerImpl
 import com.example.breathtaker.data.remote.BreathTakerAPI
 import com.example.breathtaker.data.repository.ArticleRepositoryImpl
 import com.example.breathtaker.domain.repository.ArticleRepository
@@ -15,10 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 interface AppModule {
     val breathTakerAPI: BreathTakerAPI
     val articleRepository: ArticleRepository
+    val breathManager: BreathManager
     val getArticlesUseCase: GetArticlesUseCase
     val getArticleDetailsUseCase: GetArticleDetailsUseCase
     val savedStateHandle: SavedStateHandle
     val appResources: Resources
+    val sharedPreferences: SharedPreferences
 }
 
 class AppModuleImpl(
@@ -30,6 +35,14 @@ class AppModuleImpl(
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(BreathTakerAPI::class.java)
+    }
+
+    override val sharedPreferences: SharedPreferences by lazy {
+        appContext.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    }
+
+    override val breathManager: BreathManager by lazy {
+        BreathManagerImpl(sharedPreferences)
     }
 
     override val articleRepository: ArticleRepository by lazy {
