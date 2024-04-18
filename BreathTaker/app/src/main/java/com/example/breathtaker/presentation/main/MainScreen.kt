@@ -26,10 +26,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.breathtaker.BreathTakerApp
+import com.example.breathtaker.common.Constants
 import com.example.breathtaker.R
+import com.example.breathtaker.presentation.Screen
 import com.example.breathtaker.presentation.CommonValues
 import com.example.breathtaker.presentation.NavigationHelpers
 import com.example.breathtaker.presentation.main.components.ArticleListItem
@@ -72,7 +75,7 @@ fun MainScreen(
                 // * * * * BREATH BUTTON * * * *
                 Box(
                     modifier = Modifier
-                        .weight(1.8f)
+                        .weight(Constants.GOLDEN_PROPORTION)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
@@ -83,7 +86,7 @@ fun MainScreen(
                             .width(256.dp)
                             .height(286.dp)
                             .clickable {
-
+                                navController.navigate(Screen.MoodScreen.route)
                             }
                             .fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -94,7 +97,8 @@ fun MainScreen(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.breathButtonText),
-                                color = Colors.LightColor
+                                color = Colors.LightColor,
+                                fontSize = CommonValues.buttonTextFontSize
                             )
                             Spacer(modifier = Modifier.height(32.dp))
                             val painter: Painter = painterResource(id = R.drawable.lungs)
@@ -108,7 +112,8 @@ fun MainScreen(
                             Spacer(modifier = Modifier.height(32.dp))
                             Text(
                                 text = stringResource(id = R.string.breathButtonSubtext),
-                                color = Colors.LightColor50
+                                color = Colors.LightColor50,
+                                fontSize = CommonValues.buttonSubtextFontSize
                             )
                         }
                     }
@@ -120,7 +125,13 @@ fun MainScreen(
                         .weight(1f)
                         .fillMaxWidth()
                 ) {
-                    ArticleList(state = state, navController = navController)
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(text = state.articlesHeader, color = Colors.LightColor, fontSize = CommonValues.h2FontSize)
+                        ArticleList(state = state, navController = navController)
+                    }
                 }
             }
         }

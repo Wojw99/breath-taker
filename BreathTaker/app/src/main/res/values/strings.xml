@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BreathTaker</string>
     <string name="noIconName">ic_none</string>
+    <string name="icon">fancy icon</string>
     <string name="empty"/>
     <string name="unexpectedAppErrorOccurred">An unexpected app error occurred.</string>
     <string name="unexpectedServerErrorOccurred">An unexpected server error occurred.</string>

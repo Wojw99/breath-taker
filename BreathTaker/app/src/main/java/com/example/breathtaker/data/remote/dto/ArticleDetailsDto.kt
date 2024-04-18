@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class ArticleDetailsDto(
     @SerializedName("content")
     val sections: List<String>,
-    @SerializedName("icon_name")
-    val iconName: String,
+    @SerializedName("icon_tag")
+    val iconTag: String,
     val id: Int,
     @SerializedName("text_read")
     val textRead: String,
@@ -18,6 +18,6 @@ fun ArticleDetailsDto.toArticleDetails(): ArticleDetails {
     return ArticleDetails(
         title = title,
         sections = sections,
-        iconName = iconName
+        iconTag = iconTag
     )
 }

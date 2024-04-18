@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.breathtaker.presentation.article.ArticleDetailsScreen
 import com.example.breathtaker.presentation.main.MainScreen
+import com.example.breathtaker.presentation.mood.MoodScreen
 import com.example.breathtaker.presentation.ui.theme.BreathTakerTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.ArticleDetailsScreen.route) {
                             ArticleDetailsScreen(navController = navController)
+                        }
+                        composable(Screen.MoodScreen.route) {
+                            MoodScreen(navController = navController)
                         }
                     }
                 }

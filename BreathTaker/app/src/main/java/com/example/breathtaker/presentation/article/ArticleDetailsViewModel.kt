@@ -32,7 +32,7 @@ class ArticleDetailsViewModel(
                 is Resource.Success -> {
                     _state.value = ArticleDetailsState(
                         title = result.data?.title ?: String(),
-                        iconName = result.data?.iconName ?: Constants.NO_ICON,
+                        iconName = result.data?.iconTag ?: Constants.NO_ICON,
                         sections = result.data?.sections ?: emptyList()
                     )
                 }
