@@ -5,11 +5,14 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.lifecycle.SavedStateHandle
 import com.example.breathtaker.common.Constants
+import com.example.breathtaker.data.local.SettingsStorage
 import com.example.breathtaker.data.remote.BreathTakerAPI
 import com.example.breathtaker.data.repository.ArticleRepositoryImpl
 import com.example.breathtaker.data.repository.BreathRepositoryImpl
+import com.example.breathtaker.data.repository.SettingsRepositoryImpl
 import com.example.breathtaker.domain.repository.ArticleRepository
 import com.example.breathtaker.domain.repository.BreathRepository
+import com.example.breathtaker.domain.repository.SettingsRepository
 import com.example.breathtaker.domain.use_case.get_article_details.GetArticleDetailsUseCase
 import com.example.breathtaker.domain.use_case.get_articles.GetArticlesUseCase
 import retrofit2.Retrofit
@@ -24,6 +27,7 @@ interface AppModule {
     val savedStateHandle: SavedStateHandle
     val appResources: Resources
     val sharedPreferences: SharedPreferences
+    val settingsRepository: SettingsRepository
 }
 
 class AppModuleImpl(
@@ -43,6 +47,10 @@ class AppModuleImpl(
 
     override val breathRepository: BreathRepository by lazy {
         BreathRepositoryImpl(sharedPreferences)
+    }
+
+    override val settingsRepository: SettingsRepository by lazy {
+        SettingsRepositoryImpl(SettingsStorage())
     }
 
     override val articleRepository: ArticleRepository by lazy {
