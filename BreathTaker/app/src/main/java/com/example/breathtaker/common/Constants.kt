@@ -1,9 +1,5 @@
 package com.example.breathtaker.common
 
-import com.example.breathtaker.BreathTakerApp
-import com.example.breathtaker.R
-import com.example.breathtaker.domain.model.MoodRate
-
 object Constants {
     const val BASE_URL = "http://10.0.2.2:3000/api/"
     const val SHARED_PREFERENCES_NAME = "breath_taker_preferences"

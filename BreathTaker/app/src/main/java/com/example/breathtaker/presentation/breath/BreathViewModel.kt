@@ -9,10 +9,6 @@ import com.example.breathtaker.presentation.NavigationHelpers
 class BreathViewModel: ViewModel() {
     val stateError = mutableStateOf(String())
     init {
-        NavigationHelpers.readRateFromSavedState()?.let { rate ->
-            BreathTakerApp.appModule.breathManager.getBreathDetails(rate)
-        } ?: {
-            stateError.value = ErrorHelper.unexpectedAppErrorOccurred
-        }
+        BreathTakerApp.appModule.breathRepository.getBreathParameters()
     }
 }

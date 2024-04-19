@@ -12,7 +12,9 @@ const articles = [
         'Aliquam ligula lacus, bibendum ut nunc vitae, viverra semper libero. Morbi fringilla cursus enim, eget vulputate leo lobortis a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean aliquet mauris nec felis semper, sed elementum enim sollicitudin.',
         'Etiam molestie nibh vitae nisl egestas, nec molestie nisl pellentesque. Etiam dictum, purus eu rutrum hendrerit, mi ipsum finibus lectus, eu sollicitudin metus dui dictum turpis.',
         'Sed magna odio.',
-        'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus dui justo, vestibulum non enim vel, fringilla lobortis risus. Etiam malesuada diam lorem, at egestas velit ultricies sit amet.'
+        'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus dui justo, vestibulum non enim vel, fringilla lobortis risus. Etiam malesuada diam lorem, at egestas velit ultricies sit amet.',
+        'Aliquam ligula lacus, bibendum ut nunc vitae, viverra semper libero. Morbi fringilla cursus enim, eget vulputate leo lobortis a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean aliquet mauris nec felis semper, sed elementum enim sollicitudin.',
+        'Cyganie w Polsce',
     ] }
 ]
 

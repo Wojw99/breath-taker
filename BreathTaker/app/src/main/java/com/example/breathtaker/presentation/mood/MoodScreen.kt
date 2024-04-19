@@ -83,6 +83,7 @@ fun MoodScreen(
                             .height(rowHeight)
                             .background(color = Colors.MainColor)
                             .clickable {
+                                viewModel.saveMoodRate(moodRate.rate)
                                 NavigationHelpers.navigateToBreathWithRate(
                                     navController = navController,
                                     rate = moodRate.rate
