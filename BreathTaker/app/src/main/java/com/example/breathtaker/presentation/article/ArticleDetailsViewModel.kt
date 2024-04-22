@@ -4,11 +4,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.common.Constants
 import com.example.breathtaker.common.ErrorHelper
 import com.example.breathtaker.common.Resource
 import com.example.breathtaker.domain.use_case.get_article_details.GetArticleDetailsUseCase
-import com.example.breathtaker.presentation.NavigationHelpers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -19,7 +19,8 @@ class ArticleDetailsViewModel(
     val state: State<ArticleDetailsState> = _state
 
     init {
-        NavigationHelpers.readArticleIdFromSavedState()?.let { articleId ->
+        val navHandler = BreathTakerApp.appModule.navigationHandler
+        navHandler.readArticleIdFromSavedState()?.let { articleId ->
             getArticle(articleId)
         } ?: {
             _state.value = ArticleDetailsState(error = ErrorHelper.unexpectedAppErrorOccurred)

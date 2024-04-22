@@ -15,6 +15,7 @@ import com.example.breathtaker.domain.repository.BreathRepository
 import com.example.breathtaker.domain.repository.SettingsRepository
 import com.example.breathtaker.domain.use_case.get_article_details.GetArticleDetailsUseCase
 import com.example.breathtaker.domain.use_case.get_articles.GetArticlesUseCase
+import com.example.breathtaker.presentation.NavigationHandler
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,6 +26,7 @@ interface AppModule {
     val getArticlesUseCase: GetArticlesUseCase
     val getArticleDetailsUseCase: GetArticleDetailsUseCase
     val savedStateHandle: SavedStateHandle
+    val navigationHandler: NavigationHandler
     val appResources: Resources
     val sharedPreferences: SharedPreferences
     val settingsRepository: SettingsRepository
@@ -71,5 +73,9 @@ class AppModuleImpl(
 
     override val appResources: Resources by lazy {
         appContext.resources
+    }
+
+    override val navigationHandler: NavigationHandler by lazy {
+        NavigationHandler(savedStateHandle)
     }
 }

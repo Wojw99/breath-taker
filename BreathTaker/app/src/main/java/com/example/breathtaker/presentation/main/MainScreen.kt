@@ -34,7 +34,6 @@ import com.example.breathtaker.common.Constants
 import com.example.breathtaker.R
 import com.example.breathtaker.presentation.Screen
 import com.example.breathtaker.presentation.CommonValues
-import com.example.breathtaker.presentation.NavigationHelpers
 import com.example.breathtaker.presentation.main.components.ArticleListItem
 import com.example.breathtaker.presentation.shared_components.CustomTopAppBar
 import com.example.breathtaker.presentation.ui.theme.Colors
@@ -143,17 +142,20 @@ fun ArticleList(
     state: MainState,
     navController: NavController
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(state.articles) { article ->
-            ArticleListItem(
-                articleLimited = article,
-                onItemClick = {
-                    NavigationHelpers.navigateToArticleWithId(
-                        navController,
-                        it.id.toString()
-                    )
-                }
-            )
+    if(!state.isLoading && state.error.isBlank()) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(state.articles) { article ->
+                ArticleListItem(
+                    articleLimited = article,
+                    onItemClick = {
+                        val navHandler = BreathTakerApp.appModule.navigationHandler
+                        navHandler.navigateToArticleWithId(
+                            navController,
+                            it.id.toString()
+                        )
+                    }
+                )
+            }
         }
     }
     if (state.error.isNotBlank()) {

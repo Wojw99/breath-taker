@@ -27,10 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.R
-import com.example.breathtaker.common.Constants
 import com.example.breathtaker.presentation.CommonValues
-import com.example.breathtaker.presentation.NavigationHelpers
-import com.example.breathtaker.presentation.article.ArticleDetailsViewModel
 import com.example.breathtaker.presentation.shared_components.CustomTopAppBar
 import com.example.breathtaker.presentation.ui.theme.Colors
 import com.example.breathtaker.presentation.viewModelFactory
@@ -84,7 +81,8 @@ fun MoodScreen(
                             .background(color = Colors.MainColor)
                             .clickable {
                                 viewModel.saveMoodRate(moodRate.rate)
-                                NavigationHelpers.navigateToBreathWithRate(
+                                val navHandler = BreathTakerApp.appModule.navigationHandler
+                                navHandler.navigateToBreathWithRate(
                                     navController = navController,
                                     rate = moodRate.rate
                                 )

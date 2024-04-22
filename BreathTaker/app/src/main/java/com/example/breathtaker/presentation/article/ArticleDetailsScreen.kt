@@ -28,8 +28,6 @@ import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.R
 import com.example.breathtaker.common.IconTagMapper
 import com.example.breathtaker.presentation.CommonValues
-import com.example.breathtaker.presentation.NavigationHelpers
-import com.example.breathtaker.presentation.main.components.ArticleListItem
 import com.example.breathtaker.presentation.shared_components.CustomTopAppBar
 import com.example.breathtaker.presentation.ui.theme.Colors
 import com.example.breathtaker.presentation.viewModelFactory

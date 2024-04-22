@@ -17,4 +17,8 @@
 
     <string name="breathButtonText">Take a breath</string>
     <string name="breathButtonSubtext">1 to 5 min</string>
+
+    <string name="inhale">Inhale</string>
+    <string name="exhale">Exhale</string>
+    <string name="wait">Wait</string>
 </resources>
