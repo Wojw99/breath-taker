@@ -40,7 +40,7 @@ fun BreathScreen(
 ) {
     val viewModel = viewModel<BreathViewModel>(
         factory = viewModelFactory {
-            BreathViewModel(navController)
+            BreathViewModel()
         }
     )
 
@@ -79,21 +79,26 @@ fun BreathScreen(
                 Text(
                     color = Colors.LightColor,
                     fontSize = 32.sp,
-                    text = stringResource(id = R.string.inhale)
+                    text = when (viewModel.statePhase.value.phase) {
+                        0 -> stringResource(id = R.string.inhale)
+                        2 -> stringResource(id = R.string.exhale)
+                        else -> stringResource(id = R.string.wait)
+                    }
                 )
                 Spacer(modifier = Modifier.height(space))
 
                 // * * * * PHASE PROGRESS * * * *
+                val maxHeight = 500.dp
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .height(maxHeight)
                         .background(Colors.MainColor)
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .align(Alignment.BottomCenter)
-                            .height(150.dp)
+                            .height(maxHeight * viewModel.statePhase.value.progress)
                             .background(Colors.MainLighterColor)
                     )
                 }

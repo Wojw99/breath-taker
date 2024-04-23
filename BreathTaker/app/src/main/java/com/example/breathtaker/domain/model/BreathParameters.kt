@@ -10,4 +10,16 @@ data class BreathParameters(
     fun countExerciseDuration(): Float {
         return (exhaleDuration + inhaleDuration + exhalePauseDuration + inhalePauseDuration) * cyclesNumber
     }
+
+    companion object {
+        fun getDefaultInstance(): BreathParameters {
+            return BreathParameters(
+                cyclesNumber = 8,
+                exhaleDuration = 3f,
+                inhaleDuration = 3f,
+                exhalePauseDuration = 1f,
+                inhalePauseDuration = 1f
+            )
+        }
+    }
 }
