@@ -21,4 +21,7 @@
     <string name="inhale">Inhale</string>
     <string name="exhale">Exhale</string>
     <string name="wait">Wait</string>
+    <string name="timeLeft">left</string>
+    <string name="secLeft">sec</string>
+    <string name="minLeft">min</string>
 </resources>

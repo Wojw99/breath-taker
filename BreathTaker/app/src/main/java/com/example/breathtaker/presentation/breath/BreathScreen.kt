@@ -40,9 +40,14 @@ fun BreathScreen(
 ) {
     val viewModel = viewModel<BreathViewModel>(
         factory = viewModelFactory {
-            BreathViewModel()
+            BreathViewModel(navController)
         }
     )
+
+    if (viewModel.statePopBack.value) {
+        navController.popBackStack()
+        viewModel.statePopBack.value = false
+    }
 
     Scaffold(
         topBar = {
@@ -96,7 +101,7 @@ fun BreathScreen(
 
                 // * * * * EXERCISE PROGRESS * * * *
                 LinearProgressIndicator(
-                    progress = 0.6f,
+                    progress = viewModel.stateExercise.value.progress,
                     color = Colors.MainLighterColor,
                     trackColor = Colors.MainColor,
                     modifier = Modifier
@@ -106,7 +111,7 @@ fun BreathScreen(
                 Text(
                     fontSize = CommonValues.buttonSubtextFontSize,
                     color = Colors.MainLighterColor,
-                    text = "1 min, 12 sec left"
+                    text = "${viewModel.stateExercise.value.remainingMinutes}:${viewModel.stateExercise.value.remainingSeconds} ${stringResource(id = R.string.timeLeft)}"
                 )
 
                 Spacer(modifier = Modifier.height(screenPadding))

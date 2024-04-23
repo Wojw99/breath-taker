@@ -6,4 +6,8 @@ data class BreathParameters(
     val inhaleDuration: Float,
     val exhalePauseDuration: Float,
     val inhalePauseDuration: Float
-)
+) {
+    fun countExerciseDuration(): Float {
+        return (exhaleDuration + inhaleDuration + exhalePauseDuration + inhalePauseDuration) * cyclesNumber
+    }
+}
