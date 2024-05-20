@@ -12,6 +12,7 @@ object Colors {
     val Pink40 = Color(0xFF7D5260)
 
     val MainDarkColor = Color(0xFF1F144D)
+    val MainDarkColorUnfocused = Color(0xFF969696)
     val MainColor = Color(0xFF3D2F62)
     val MainLighterColor = Color(0xFF8A7BB1)
     val LightColor = Color(0xFFFEFDFF)

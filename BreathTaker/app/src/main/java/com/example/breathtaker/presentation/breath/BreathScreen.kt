@@ -1,5 +1,6 @@
 package com.example.breathtaker.presentation.breath
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,6 +105,13 @@ fun BreathScreen(
                             .height(maxHeight * viewModel.statePhase.value.progress)
                             .background(Colors.MainLighterColor)
                     )
+//                    val painter: Painter = painterResource(id = R.drawable.sin_main_color)
+//                    Image(
+//                        painter = painter,
+//                        modifier = Modifier.fillMaxSize(),
+//                        contentDescription = "sinusoid",
+//                        contentScale = ContentScale.FillBounds
+//                    )
                 }
                 Spacer(modifier = Modifier.height(space))
 

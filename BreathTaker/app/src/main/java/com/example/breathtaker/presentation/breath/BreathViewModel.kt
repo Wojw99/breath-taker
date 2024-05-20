@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.breathtaker.BreathTakerApp
+import com.example.breathtaker.common.Resource
+import com.example.breathtaker.data.repository.BreathRepositoryImpl
 import com.example.breathtaker.domain.model.BreathParameters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,22 +24,47 @@ class BreathViewModel : ViewModel() {
     private var job: Job? = null
     private val timerDelay = 10L
 
-    private val exerciseStartTime = LocalTime.now()
-    private val exerciseEndTime =
-        exerciseStartTime.plusSeconds(breathParameters.countExerciseDuration().toLong())
+    private var exerciseStartTime = LocalTime.now()
+    private var exerciseEndTime =
+        exerciseStartTime.plusSeconds(breathParameters.totalTime.toLong())
     private var phaseStartTime = LocalTime.now()
     private var phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
 
     val statePopBack = mutableStateOf(false)
-    val statePhase = mutableStateOf(PhaseState(phase = 0, progress = 0f))
+    val statePhase = mutableStateOf(PhaseState(phase = -1, progress = 0f))
     val stateExercise = mutableStateOf(ExerciseState(0f, 1, 1))
 
     init {
-        breathParameters = BreathTakerApp.appModule.breathRepository.getBreathParameters()
-        startTimer()
+        initBreathParams()
+
+        viewModelScope.launch {
+            delay(1000)
+            startTimer()
+        }
+    }
+
+    private fun initBreathParams() {
+        val res = BreathTakerApp.appModule.breathRepository.getBreathParameters()
+        when (res) {
+            is Resource.Success -> {
+                breathParameters = res.data!!
+                exerciseEndTime = exerciseStartTime.plusSeconds(breathParameters.totalTime.toLong())
+                phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
+            }
+            is Resource.Error -> {
+                breathParameters = BreathParameters.getDefaultInstance()
+            }
+            is Resource.Loading -> {
+                breathParameters = BreathParameters.getDefaultInstance()
+            }
+        }
     }
 
     private fun startTimer() {
+        phaseStartTime = LocalTime.now()
+        phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
+        statePhase.value = PhaseState(phase = 0, progress = 0f)
+
         job = viewModelScope.launch(Dispatchers.Default) {
             while (isActive) { // Keep running until the ViewModel is cleared
                 withContext(Dispatchers.Main) {
@@ -50,9 +77,13 @@ class BreathViewModel : ViewModel() {
     }
 
     private fun updatePhaseState() {
-        val phaseHiddenProgress = calculateProgress(phaseStartTime, phaseEndTime)
+        val currentTime = LocalTime.now()
+        val totalTime = ChronoUnit.MILLIS.between(phaseStartTime, phaseEndTime)
+        val elapsedTime = ChronoUnit.MILLIS.between(phaseStartTime, currentTime)
 
-        if (phaseHiddenProgress >= 1f) {
+        val phaseHiddenProgress = calculatePhaseProgress(phaseStartTime, phaseEndTime).toFloat()
+
+        if (elapsedTime >= totalTime) {
             val newPhase = getIncrementedPhase(statePhase.value.phase)
             val (startTime, endTime) = getProgressIntervals(newPhase)
             val newProgress = 0f
@@ -91,7 +122,7 @@ class BreathViewModel : ViewModel() {
     }
 
     private fun updateExerciseState() {
-        val exerciseProgress = calculateProgress(exerciseStartTime, exerciseEndTime)
+        val exerciseProgress = calculateExerciseProgress(exerciseStartTime, exerciseEndTime)
 
         if (exerciseProgress >= 1f) {
             statePopBack.value = true
@@ -110,7 +141,28 @@ class BreathViewModel : ViewModel() {
         return Pair(minutes.toInt(), seconds.toInt())
     }
 
-    private fun calculateProgress(startTime: LocalTime, endTime: LocalTime): Float {
+    private fun calculatePhaseProgress(startTime: LocalTime, endTime: LocalTime): Double {
+        val currentTime = LocalTime.now()
+        val totalTime = ChronoUnit.MILLIS.between(startTime, endTime)
+        val elapsedTime = ChronoUnit.MILLIS.between(startTime, currentTime)
+
+        if (totalTime == 0L) {
+            return 1.0
+        }
+
+        val progress = BreathTakerApp.appModule.breathRepository.getInhaleProgress(
+            elapsedTime.toDouble(),
+            totalTime.toDouble()
+        )
+
+        Log.d("BreathViewModel", "Start time: $startTime, End time: $endTime")
+        Log.d("BreathViewModel", "Total time: $totalTime, Elapsed time: $elapsedTime, progress: $progress")
+        Log.d("BreathViewModel", "- - -")
+
+        return progress
+    }
+
+    private fun calculateExerciseProgress(startTime: LocalTime, endTime: LocalTime): Float {
         val currentTime = LocalTime.now()
         val totalTime = ChronoUnit.MILLIS.between(startTime, endTime)
         val elapsedTime = ChronoUnit.MILLIS.between(startTime, currentTime)

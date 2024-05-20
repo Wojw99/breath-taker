@@ -14,6 +14,12 @@ class NavigationHandler(
         navController.navigate(route)
     }
 
+    fun navigateToMainFromUserData(navController: NavController) {
+        val route = Screen.MainScreen.route
+        // navigate without adding current screen to backstack
+        navController.navigate(route)
+    }
+
     fun navigateToBreathWithRate(navController: NavController, rate: Int) {
         savedStateHandle[Constants.PARAM_GRADE_FOR_NAV] = rate
 

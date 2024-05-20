@@ -47,12 +47,12 @@ class AppModuleImpl(
         appContext.getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
 
-    override val breathRepository: BreathRepository by lazy {
-        BreathRepositoryImpl(sharedPreferences)
+    override val settingsRepository: SettingsRepository by lazy {
+        SettingsRepositoryImpl(SettingsStorage(), sharedPreferences)
     }
 
-    override val settingsRepository: SettingsRepository by lazy {
-        SettingsRepositoryImpl(SettingsStorage())
+    override val breathRepository: BreathRepository by lazy {
+        BreathRepositoryImpl(sharedPreferences, settingsRepository)
     }
 
     override val articleRepository: ArticleRepository by lazy {

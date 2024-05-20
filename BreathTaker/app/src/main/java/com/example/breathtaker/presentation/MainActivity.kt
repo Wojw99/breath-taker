@@ -1,6 +1,7 @@
 package com.example.breathtaker.presentation
 
 import android.os.Bundle
+import android.service.autofill.UserData
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,15 +14,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.presentation.article.ArticleDetailsScreen
 import com.example.breathtaker.presentation.breath.BreathScreen
 import com.example.breathtaker.presentation.main.MainScreen
 import com.example.breathtaker.presentation.mood.MoodScreen
 import com.example.breathtaker.presentation.ui.theme.BreathTakerTheme
+import com.example.breathtaker.presentation.user_data.UserDataScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val userDataCollected = BreathTakerApp.appModule.settingsRepository.getUserDataCollected()
         setContent {
             BreathTakerTheme {
                 Surface(
@@ -31,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.MainScreen.route
+                        startDestination = if (userDataCollected) Screen.MainScreen.route else Screen.UserDataScreen.route
                     ) {
                         composable(Screen.MainScreen.route) {
                             MainScreen(navController = navController)
@@ -44,6 +48,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.MoodScreen.route) {
                             MoodScreen(navController = navController)
+                        }
+                        composable(Screen.UserDataScreen.route) {
+                            UserDataScreen(navController = navController)
                         }
                     }
                 }

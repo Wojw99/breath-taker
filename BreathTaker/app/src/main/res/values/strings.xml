@@ -8,6 +8,14 @@
     <string name="couldNotReachServer">Couldn\'t reach server. Check your Internet connection.</string>
     <string name="moveBack">Move back.</string>
 
+    <string name="userParameters">Who are you?</string>
+    <string name="sexQuestion">What is your gender?</string>
+    <string name="heightQuestion">What is your height (cm)?</string>
+    <string name="heightQuestionPlaceholder">ex. 168</string>
+    <string name="accept">Accept</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
     <string name="howDoYouFeel">How do you feel today?</string>
     <string name="grade1Text">It\'s really bad</string>
     <string name="grade2Text">Not very well</string>
