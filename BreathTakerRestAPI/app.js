@@ -4,17 +4,14 @@ const port = 3000;
 
 const articles = [
     { id: 1, title: 'How to use the app?', text_read: '5 min read', icon_tag : 'help', content : [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mi lorem, eleifend et neque dignissim, dignissim condimentum enim.",
-        "Duis justo nisl, efficitur id tempor eget, egestas ut est. Phasellus tincidunt lacus eu ipsum maximus, eget cursus justo interdum. Sed nec sodales nunc.",
-        "Phasellus porttitor nisl lorem, a bibendum dolor suscipit ac. Donec congue venenatis lorem, ut tincidunt nisl consequat eu. Etiam at venenatis ex.",
+        ".",
+        ".",
+        ".",
     ] }, 
     { id: 2, title: 'How to breath correctly?', text_read: '5 min read', icon_tag : 'breath', content : [
-        'Aliquam ligula lacus, bibendum ut nunc vitae, viverra semper libero. Morbi fringilla cursus enim, eget vulputate leo lobortis a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean aliquet mauris nec felis semper, sed elementum enim sollicitudin.',
-        'Etiam molestie nibh vitae nisl egestas, nec molestie nisl pellentesque. Etiam dictum, purus eu rutrum hendrerit, mi ipsum finibus lectus, eu sollicitudin metus dui dictum turpis.',
-        'Sed magna odio.',
-        'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus dui justo, vestibulum non enim vel, fringilla lobortis risus. Etiam malesuada diam lorem, at egestas velit ultricies sit amet.',
-        'Aliquam ligula lacus, bibendum ut nunc vitae, viverra semper libero. Morbi fringilla cursus enim, eget vulputate leo lobortis a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean aliquet mauris nec felis semper, sed elementum enim sollicitudin.',
-        'Cyganie w Polsce',
+        'Take breath using your nose. Sometimes breathing through the mouth is necessary, but generally breathing through your nose helps in preventing infections and face deformations.',
+        'Use your belly instead of your chest. When you breathe in, your belly should expand, not your chest. This is the correct way to breathe. Use your hand to feel your belly expanding.',
+        'Practice proper breathing. You can practice proper breathing by lying down and placing a book on your belly. When you breathe in, the book should rise. When you breathe out, the book should fall.'
     ] }
 ]
 
