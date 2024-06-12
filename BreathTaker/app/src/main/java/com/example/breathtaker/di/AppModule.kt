@@ -35,6 +35,7 @@ interface AppModule {
     val settingsRepository: SettingsRepository
     val audioDataSource: AudioDataSource
     val mediaPlayer: MediaPlayer
+    val mediaPlayer2: MediaPlayer
 }
 
 class AppModuleImpl(
@@ -89,6 +90,10 @@ class AppModuleImpl(
     }
 
     override val mediaPlayer: MediaPlayer by lazy {
-        MediaPlayer.create(appContext, R.raw.exhale_2)
+        MediaPlayer.create(appContext, R.raw.inhale_4)
+    }
+
+    override val mediaPlayer2: MediaPlayer by lazy {
+        MediaPlayer.create(appContext, R.raw.exhale_4)
     }
 }

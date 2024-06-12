@@ -15,6 +15,8 @@ class BreathRepositoryImpl(
     private val settingsRepository: SettingsRepository,
 ): BreathRepository {
     private var moodRate: Int = 3
+    private var inhalePauseDuration = 0.5
+    private var exhalePauseDuration = 0.5
 
     override fun getInhaleProgress(time: Double, phaseDuration: Double): Double {
         val timeNorm = normalize(time, 0.0, phaseDuration, 0.0, 1.0)
@@ -48,8 +50,8 @@ class BreathRepositoryImpl(
             totalTime = totalTime.toDouble(),
             exhaleDuration = exhaleTime,
             inhaleDuration = inhaleTime,
-            exhalePauseDuration = 1.0,
-            inhalePauseDuration = 1.0
+            exhalePauseDuration = exhalePauseDuration,
+            inhalePauseDuration = inhalePauseDuration
         )
 
         return Resource.Success(breathParameters)
