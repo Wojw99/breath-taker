@@ -1,15 +1,11 @@
 package com.example.breathtaker.presentation.breath
 
 import android.util.Log
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.common.Resource
-import com.example.breathtaker.data.repository.BreathRepositoryImpl
 import com.example.breathtaker.domain.model.BreathParameters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -29,10 +25,13 @@ class BreathViewModel : ViewModel() {
         exerciseStartTime.plusSeconds(breathParameters.totalTime.toLong())
     private var phaseStartTime = LocalTime.now()
     private var phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
+    private var audioDataSource = BreathTakerApp.appModule.audioDataSource
 
     val statePopBack = mutableStateOf(false)
     val statePhase = mutableStateOf(PhaseState(phase = -1, progress = 0f))
     val stateExercise = mutableStateOf(ExerciseState(0f, 1, 1))
+
+    private var frequency = 440.0
 
     init {
         initBreathParams()
@@ -41,6 +40,18 @@ class BreathViewModel : ViewModel() {
             delay(1000)
             startTimer()
         }
+    }
+
+    private fun playSound(durationNeededInMs: Long, onCompletion: () -> Unit = { }) {
+        val mediaPlayer = BreathTakerApp.appModule.mediaPlayer
+        val playbackParam = mediaPlayer.playbackParams
+        val originalDuration = mediaPlayer.duration
+        playbackParam.speed = originalDuration.toFloat() / durationNeededInMs.toFloat()
+        mediaPlayer.playbackParams = playbackParam
+        mediaPlayer.setOnCompletionListener {
+            onCompletion()
+        }
+        mediaPlayer.start()
     }
 
     private fun initBreathParams() {
@@ -64,6 +75,7 @@ class BreathViewModel : ViewModel() {
         phaseStartTime = LocalTime.now()
         phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
         statePhase.value = PhaseState(phase = 0, progress = 0f)
+        playSound(breathParameters.inhaleDuration.toLong() * 1000L)
 
         job = viewModelScope.launch(Dispatchers.Default) {
             while (isActive) { // Keep running until the ViewModel is cleared
@@ -90,6 +102,10 @@ class BreathViewModel : ViewModel() {
             statePhase.value = PhaseState(phase = newPhase, progress = newProgress)
             phaseStartTime = startTime
             phaseEndTime = endTime
+            if(newPhase == 0 || newPhase == 2) {
+                val duration = ChronoUnit.MILLIS.between(startTime, endTime)
+                playSound(duration)
+            }
         } else {
             when(val phase = statePhase.value.phase) {
                 0 -> statePhase.value = PhaseState(phase, phaseHiddenProgress)

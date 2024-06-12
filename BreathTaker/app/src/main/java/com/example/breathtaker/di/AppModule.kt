@@ -3,11 +3,14 @@ package com.example.breathtaker.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.media.MediaPlayer
 import androidx.lifecycle.SavedStateHandle
+import com.example.breathtaker.R
 import com.example.breathtaker.common.Constants
 import com.example.breathtaker.data.local.SettingsStorage
 import com.example.breathtaker.data.remote.BreathTakerAPI
 import com.example.breathtaker.data.repository.ArticleRepositoryImpl
+import com.example.breathtaker.data.repository.AudioDataSource
 import com.example.breathtaker.data.repository.BreathRepositoryImpl
 import com.example.breathtaker.data.repository.SettingsRepositoryImpl
 import com.example.breathtaker.domain.repository.ArticleRepository
@@ -30,6 +33,8 @@ interface AppModule {
     val appResources: Resources
     val sharedPreferences: SharedPreferences
     val settingsRepository: SettingsRepository
+    val audioDataSource: AudioDataSource
+    val mediaPlayer: MediaPlayer
 }
 
 class AppModuleImpl(
@@ -77,5 +82,13 @@ class AppModuleImpl(
 
     override val navigationHandler: NavigationHandler by lazy {
         NavigationHandler(savedStateHandle)
+    }
+
+    override val audioDataSource: AudioDataSource by lazy {
+        AudioDataSource()
+    }
+
+    override val mediaPlayer: MediaPlayer by lazy {
+        MediaPlayer.create(appContext, R.raw.exhale_2)
     }
 }
