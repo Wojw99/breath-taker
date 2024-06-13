@@ -16,6 +16,8 @@ import kotlinx.coroutines.withContext
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.*
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class BreathViewModel : ViewModel() {
     private var breathParameters = BreathParameters.getDefaultInstance()
@@ -57,7 +59,11 @@ class BreathViewModel : ViewModel() {
     }
 
     private fun initBreathParams() {
-        val res = BreathTakerApp.appModule.breathRepository.getBreathParameters()
+        val res = if (customTraining) {
+            BreathTakerApp.appModule.breathRepository.getBreathParametersCustom()
+        } else {
+            BreathTakerApp.appModule.breathRepository.getBreathParameters()
+        }
         when (res) {
             is Resource.Success -> {
                 breathParameters = res.data!!
@@ -80,8 +86,8 @@ class BreathViewModel : ViewModel() {
         phaseEndTime = phaseStartTime.plusSeconds(breathParameters.inhaleDuration.toLong())
         statePhase.value = PhaseState(phase = 0, progress = 0f)
         val inhaleMedia = BreathTakerApp.appModule.mediaPlayer
-        val duration = breathParameters.inhaleDuration.toLong() * 1000L
-        playSound(inhaleMedia, duration)
+        val duration = breathParameters.inhaleDuration * 1000
+        playSound(inhaleMedia, duration.toLong())
 
         job = viewModelScope.launch(Dispatchers.Default) {
             while (isActive) { // Keep running until the ViewModel is cleared
@@ -136,15 +142,16 @@ class BreathViewModel : ViewModel() {
     private fun getProgressIntervals(phase: Int): Pair<LocalTime, LocalTime> {
         val startTime = LocalTime.now()
 
-        val duration = when (phase) {
+        val duration : Double = when (phase) {
             0 -> breathParameters.inhaleDuration
             1 -> breathParameters.inhalePauseDuration
             2 -> breathParameters.exhaleDuration
             3 -> breathParameters.exhalePauseDuration
-            else -> 1f
+            else -> 1.0
         }
-
-        val endTime = startTime.plusSeconds(duration.toLong())
+        val millis = (duration * 1000).toLong()
+        val nanos = millis * 1000000
+        val endTime = startTime.plusNanos(nanos)
         return Pair(startTime, endTime)
     }
 
@@ -183,13 +190,6 @@ class BreathViewModel : ViewModel() {
             totalTime.toDouble()
         )
 
-        Log.d("BreathViewModel", "Start time: $startTime, End time: $endTime")
-        Log.d(
-            "BreathViewModel",
-            "Total time: $totalTime, Elapsed time: $elapsedTime, progress: $progress"
-        )
-        Log.d("BreathViewModel", "- - -")
-
         return progress
     }
 
@@ -203,5 +203,9 @@ class BreathViewModel : ViewModel() {
         }
 
         return (elapsedTime.toFloat() / totalTime.toFloat()).coerceIn(0.0f, 1.0f)
+    }
+
+    companion object {
+        var customTraining: Boolean = false
     }
 }

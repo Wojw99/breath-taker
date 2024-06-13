@@ -34,6 +34,7 @@ import com.example.breathtaker.common.Constants
 import com.example.breathtaker.R
 import com.example.breathtaker.presentation.Screen
 import com.example.breathtaker.presentation.CommonValues
+import com.example.breathtaker.presentation.breath.BreathViewModel
 import com.example.breathtaker.presentation.main.components.ArticleListItem
 import com.example.breathtaker.presentation.main.components.BreathOptionsListItem
 import com.example.breathtaker.presentation.shared_components.CustomTopAppBar
@@ -91,6 +92,7 @@ fun MainScreen(
                             text = stringResource(id = R.string.breathButtonText1),
                             subText = stringResource(id = R.string.breathButtonSubtext1),
                             onItemClick = {
+                                BreathViewModel.customTraining = false
                                 navController.navigate(Screen.MoodScreen.route)
                             }
                         )
@@ -98,6 +100,7 @@ fun MainScreen(
                             text = stringResource(id = R.string.breathButtonText2),
                             subText = stringResource(id = R.string.breathButtonSubtext2),
                             onItemClick = {
+                                BreathViewModel.customTraining = true
                                 navController.navigate(Screen.MoodScreen.route)
                             }
                         )
@@ -132,14 +135,6 @@ fun MainScreen(
             }
         }
     }
-}
-
-
-@Composable
-fun BreathOptionsList(
-    navController: NavController
-) {
-
 }
 
 @Composable

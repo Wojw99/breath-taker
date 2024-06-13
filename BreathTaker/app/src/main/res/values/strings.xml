@@ -42,4 +42,13 @@
     <string name="timeLeft">left</string>
     <string name="secLeft">sec</string>
     <string name="minLeft">min</string>
+
+    <string name="phase">Phase</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="next">Next</string>
+    <string name="start">Start</string>
+    <string name="hold">Hold</string>
+
+    <string name="breathAdjustmentInfo">Upon pressing START, the screen will display the phases of breathing. Take a breath and click NEXT when you finish a phase of breathing (e.g., when you finish inhaling or start exhaling).</string>
 </resources>
