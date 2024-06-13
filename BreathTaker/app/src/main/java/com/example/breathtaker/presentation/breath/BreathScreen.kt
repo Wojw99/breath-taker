@@ -89,6 +89,7 @@ fun BreathScreen(
                         else -> stringResource(id = R.string.wait)
                     }
                 )
+                Text(text = viewModel.elapsedTimeState.value.toString(), color = Colors.LightColor)
                 Spacer(modifier = Modifier.height(space))
 
                 // * * * * PHASE PROGRESS * * * *
@@ -104,14 +105,9 @@ fun BreathScreen(
                             .align(Alignment.BottomCenter)
                             .height(maxHeight * viewModel.statePhase.value.progress)
                             .background(Colors.MainLighterColor)
-                    )
-//                    val painter: Painter = painterResource(id = R.drawable.sin_main_color)
-//                    Image(
-//                        painter = painter,
-//                        modifier = Modifier.fillMaxSize(),
-//                        contentDescription = "sinusoid",
-//                        contentScale = ContentScale.FillBounds
-//                    )
+                    ) {
+
+                    }
                 }
                 Spacer(modifier = Modifier.height(space))
 

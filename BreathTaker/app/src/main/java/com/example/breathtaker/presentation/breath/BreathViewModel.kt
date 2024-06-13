@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -176,11 +177,13 @@ class BreathViewModel : ViewModel() {
         return Pair(minutes.toInt(), seconds.toInt())
     }
 
+    val elapsedTimeState = mutableStateOf(Duration.ZERO)
+
     private fun calculatePhaseProgress(startTime: LocalTime, endTime: LocalTime): Double {
         val currentTime = LocalTime.now()
         val totalTime = ChronoUnit.MILLIS.between(startTime, endTime)
         val elapsedTime = ChronoUnit.MILLIS.between(startTime, currentTime)
-
+        elapsedTimeState.value = elapsedTime.milliseconds
         if (totalTime == 0L) {
             return 1.0
         }
