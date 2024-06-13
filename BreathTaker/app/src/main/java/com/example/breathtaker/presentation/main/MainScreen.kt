@@ -35,6 +35,7 @@ import com.example.breathtaker.R
 import com.example.breathtaker.presentation.Screen
 import com.example.breathtaker.presentation.CommonValues
 import com.example.breathtaker.presentation.main.components.ArticleListItem
+import com.example.breathtaker.presentation.main.components.BreathOptionsListItem
 import com.example.breathtaker.presentation.shared_components.CustomTopAppBar
 import com.example.breathtaker.presentation.ui.theme.Colors
 import com.example.breathtaker.presentation.viewModelFactory
@@ -71,50 +72,42 @@ fun MainScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // * * * * BREATH BUTTON * * * *
+                val headerColor = Colors.MainLighterColor80
+
+                // * * * * BREATH OPTIONS * * * *
                 Box(
                     modifier = Modifier
                         .weight(Constants.GOLDEN_PROPORTION)
                         .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.TopCenter
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .clip(shape = RoundedCornerShape(CommonValues.roundedCornerSize))
-                            .background(color = Colors.MainColor)
-                            .width(256.dp)
-                            .height(286.dp)
-                            .clickable {
+                    Column {
+                        Text(
+                            text = stringResource(id = R.string.breathOptionsHeader),
+                            color = headerColor,
+                            fontSize = CommonValues.h2FontSize
+                        )
+                        BreathOptionsListItem(
+                            text = stringResource(id = R.string.breathButtonText1),
+                            subText = stringResource(id = R.string.breathButtonSubtext1),
+                            onItemClick = {
                                 navController.navigate(Screen.MoodScreen.route)
                             }
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.breathButtonText),
-                                color = Colors.LightColor,
-                                fontSize = CommonValues.buttonTextFontSize
-                            )
-                            Spacer(modifier = Modifier.height(32.dp))
-                            val painter: Painter = painterResource(id = R.drawable.lungs)
-                            Image(
-                                painter = painter,
-                                modifier = Modifier
-                                    .width(140.dp)
-                                    .height(140.dp),
-                                contentDescription = stringResource(id = R.string.breathButtonText)
-                            )
-                            Spacer(modifier = Modifier.height(32.dp))
-                            Text(
-                                text = stringResource(id = R.string.breathButtonSubtext),
-                                color = Colors.LightColor50,
-                                fontSize = CommonValues.buttonSubtextFontSize
-                            )
-                        }
+                        )
+                        BreathOptionsListItem(
+                            text = stringResource(id = R.string.breathButtonText2),
+                            subText = stringResource(id = R.string.breathButtonSubtext2),
+                            onItemClick = {
+                                navController.navigate(Screen.MoodScreen.route)
+                            }
+                        )
+                        BreathOptionsListItem(
+                            text = stringResource(id = R.string.adjustButtonText),
+                            subText = stringResource(id = R.string.adjustButtonSubtext),
+                            onItemClick = {
+                                navController.navigate(Screen.MoodScreen.route)
+                            }
+                        )
                     }
                 }
 
@@ -128,11 +121,67 @@ fun MainScreen(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.Start
                     ) {
-                        Text(text = state.articlesHeader, color = Colors.LightColor, fontSize = CommonValues.h2FontSize)
+                        Text(
+                            text = state.articlesHeader,
+                            color = headerColor,
+                            fontSize = CommonValues.h2FontSize
+                        )
                         ArticleList(state = state, navController = navController)
                     }
                 }
             }
+        }
+    }
+}
+
+
+@Composable
+fun BreathOptionsList(
+    navController: NavController
+) {
+
+}
+
+@Composable
+fun BreathButton(
+    navController: NavController
+) {
+    Box(
+        modifier = Modifier
+            .clip(shape = RoundedCornerShape(CommonValues.roundedCornerSize))
+            .background(color = Colors.MainColor)
+            .width(256.dp)
+            .height(286.dp)
+            .clickable {
+                navController.navigate(Screen.MoodScreen.route)
+            }
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.breathButtonText1),
+                color = Colors.LightColor,
+                fontSize = CommonValues.buttonTextFontSize
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            val painter: Painter = painterResource(id = R.drawable.lungs)
+            Image(
+                painter = painter,
+                modifier = Modifier
+                    .width(140.dp)
+                    .height(140.dp),
+                contentDescription = stringResource(id = R.string.breathButtonText1)
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = stringResource(id = R.string.breathButtonSubtext1),
+                color = Colors.LightColor50,
+                fontSize = CommonValues.buttonSubtextFontSize
+            )
         }
     }
 }
@@ -142,7 +191,7 @@ fun ArticleList(
     state: MainState,
     navController: NavController
 ) {
-    if(!state.isLoading && state.error.isBlank()) {
+    if (!state.isLoading && state.error.isBlank()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(state.articles) { article ->
                 ArticleListItem(

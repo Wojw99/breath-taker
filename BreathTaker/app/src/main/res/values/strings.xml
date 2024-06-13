@@ -23,8 +23,18 @@
     <string name="grade4Text">It\'s good</string>
     <string name="grade5Text">Simply fantastic!</string>
 
-    <string name="breathButtonText">Take a breath</string>
-    <string name="breathButtonSubtext">1 to 5 min</string>
+
+    <string name="breathOptionsHeader">Train breathing</string>
+
+    <string name="adjustButtonText">Adjustment</string>
+    <string name="adjustButtonSubtext">Adjust parameters for Custom Training</string>
+
+    <string name="breathButtonText1">Default Training</string>
+    <string name="breathButtonSubtext1">With calculated parameters</string>
+
+    <string name="breathButtonText2">Custom Training</string>
+    <string name="breathButtonSubtext2">With custom parameters</string>
+
 
     <string name="inhale">Inhale</string>
     <string name="exhale">Exhale</string>

@@ -15,6 +15,7 @@ object Colors {
     val MainDarkColorUnfocused = Color(0xFF969696)
     val MainColor = Color(0xFF3D2F62)
     val MainLighterColor = Color(0xFF8A7BB1)
+    val MainLighterColor80 = Color(0xCB8A7BB1)
     val LightColor = Color(0xFFFEFDFF)
     val LightColor50 = Color(0x80FEFDFF)
 
