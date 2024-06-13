@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.breathtaker.BreathTakerApp
 import com.example.breathtaker.presentation.article.ArticleDetailsScreen
 import com.example.breathtaker.presentation.breath.BreathScreen
+import com.example.breathtaker.presentation.breath_adjustment.BreathAdjustmentScreen
 import com.example.breathtaker.presentation.main.MainScreen
 import com.example.breathtaker.presentation.mood.MoodScreen
 import com.example.breathtaker.presentation.ui.theme.BreathTakerTheme
@@ -51,6 +52,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.UserDataScreen.route) {
                             UserDataScreen(navController = navController)
+                        }
+                        composable(Screen.BreathAdjustmentScreen.route) {
+                            BreathAdjustmentScreen(navController = navController)
                         }
                     }
                 }

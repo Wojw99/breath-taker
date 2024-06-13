@@ -7,5 +7,6 @@ import com.example.breathtaker.domain.model.UserParameters
 interface BreathRepository {
     fun getInhaleProgress(time: Double, phaseDuration: Double): Double
     fun getBreathParameters(): Resource<BreathParameters>
+    fun getBreathParametersCustom(): Resource<BreathParameters>
     fun setMoodRate(moodRate: Int)
 }

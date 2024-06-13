@@ -12,4 +12,8 @@ object Constants {
     const val USER_DATA_COLLECTED_KEY = "UserDataCollected"
     const val USER_DATA_SEX_KEY = "UserDataSex"
     const val USER_DATA_HEIGHT_KEY = "UserDataHeight"
+    const val USER_DATA_EXHALE_DUR_KEY = "UserDataExhaleDuration"
+    const val USER_DATA_INHALE_DUR_KEY = "UserDataInhaleDuration"
+    const val USER_DATA_EXHALE_PAUSE_DUR_KEY = "UserDataExhalePauseDuration"
+    const val USER_DATA_INHALE_PAUSE_DUR_KEY = "UserDataInhalePauseDuration"
 }

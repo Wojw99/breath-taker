@@ -1,4 +1,5 @@
 package com.example.breathtaker.presentation.breath_adjustment
 
-class BreathAdjustmentState {
-}
+data class BreathAdjustmentState (
+    val millis: Int = 0,
+)

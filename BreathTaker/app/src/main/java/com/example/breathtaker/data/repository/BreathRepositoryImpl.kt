@@ -34,6 +34,27 @@ class BreathRepositoryImpl(
         return minNew + (value - minOld) * (maxNew - minNew) / (maxOld - minOld)
     }
 
+    override fun getBreathParametersCustom(): Resource<BreathParameters> {
+        val userData = settingsRepository.getUserData()
+        val userBreathData = settingsRepository.getUserBreathData()
+
+        if(userData.data == null || userBreathData.data == null) {
+            return Resource.Error("User data not found")
+        }
+
+        val totalTime = calculateTotalTime(moodRate, 0)
+
+        val breathParameters = BreathParameters(
+            totalTime = totalTime.toDouble(),
+            exhaleDuration = userBreathData.data.exhaleDuration.toDouble(),
+            inhaleDuration = userBreathData.data.inhaleDuration.toDouble(),
+            exhalePauseDuration = userBreathData.data.exhalePauseDuration.toDouble(),
+            inhalePauseDuration = userBreathData.data.inhalePauseDuration.toDouble()
+        )
+
+        return Resource.Success(breathParameters)
+    }
+
     override fun getBreathParameters(): Resource<BreathParameters> {
         val userData = settingsRepository.getUserData()
 

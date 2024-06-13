@@ -105,7 +105,7 @@ fun MainScreen(
                             text = stringResource(id = R.string.adjustButtonText),
                             subText = stringResource(id = R.string.adjustButtonSubtext),
                             onItemClick = {
-                                navController.navigate(Screen.MoodScreen.route)
+                                navController.navigate(Screen.BreathAdjustmentScreen.route)
                             }
                         )
                     }
